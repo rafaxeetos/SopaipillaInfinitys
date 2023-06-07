@@ -28,7 +28,7 @@ public class PlayerMove : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
 
         // Calcula la velocidad de movimiento en función del input horizontal
-        Vector3 movement = new Vector3(0f, 0f, horizontalInput) * moveSpeed;
+        Vector3 movement = new Vector3(horizontalInput, 0f, 0f) * moveSpeed;
 
         // Aplica la velocidad de movimiento al Rigidbody
         rb.velocity = new Vector3(movement.x, rb.velocity.y, movement.z);
@@ -53,8 +53,13 @@ public class PlayerMove : MonoBehaviour
 
     private void FlipCharacter()
     {
-        // Cambia la dirección del modelo invirtiendo la escala en el eje X
-        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        Vector3 scale = transform.localScale;
+
+        // Invierte la escala en el eje Y
+        scale.y *= -1f;
+
+        // Aplica la nueva escala al jugador
+        transform.localScale = scale;
 
         // Cambia el estado de isFacingRight
         isFacingRight = !isFacingRight;
