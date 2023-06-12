@@ -7,52 +7,55 @@ public class MovimientoPlayer : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpForce = 5f;
-    private Rigidbody rb;
+    public float gravity = 20f;
+    
+    private CharacterController controller;
     private bool isJumping = false;
+    private Vector3 velocity;
+    public GameObject faceStart;
+    public GameObject otherFace;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        controller = GetComponent<CharacterController>();
+        otherFace.SetActive(false);
+        faceStart.SetActive(true);
     }
 
     private void Update()
     {
-        float horizontalImput = Input.GetAxis("Horizontal");
+        float horizontalInput = Input.GetAxis("Horizontal");
 
-        Vector3 movement = new Vector3(horizontalImput * moveSpeed, rb.velocity.y, 0f);
-        rb.velocity = movement;
+        Vector3 movement = new Vector3(horizontalInput * moveSpeed, 0f, 0f);
+        controller.Move(movement * Time.deltaTime);
 
-        if (horizontalImput > 0)
+        if (horizontalInput > 0)
         {
-            transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+            faceStart.SetActive(true);
+            otherFace.SetActive(false);
+            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
-        else if (horizontalImput < 0)
+        else if (horizontalInput < 0)
         {
-            transform.rotation = Quaternion.Euler(0f, -90f, 0f);
+            faceStart.SetActive(false);
+            otherFace.SetActive(true);
+            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
         {
-            rb.AddForce(new Vector3(0f, jumpForce, 0f), ForceMode.Impulse);
+            velocity.y = Mathf.Sqrt(jumpForce * 2f * gravity);
+            controller.Move(Vector3.up * jumpForce * Time.deltaTime);
             isJumping = true;
         }
-    }
+        
+        velocity.y -= gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        // Detectar si ha aterrizado en el suelo
-        if (collision.gameObject.CompareTag("Ground"))
+        if (controller.isGrounded)
         {
+            velocity.y = -gravity * Time.deltaTime;
             isJumping = false;
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        // Detectar si ha dejado de tocar el suelo
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isJumping = true;
         }
     }
 }

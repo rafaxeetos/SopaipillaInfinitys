@@ -6,54 +6,49 @@ public class MovimientoPlayer2 : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpForce = 5f;
-    private Rigidbody rb;
+    public float gravity = 20f;
+
+    private CharacterController controller;
     private bool isJumping = false;
-    private Vector3 initialScale;
+    private Vector3 velocity;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        initialScale = transform.localScale;
+        controller = GetComponent<CharacterController>();
     }
 
     private void Update()
     {
-        float horizontalImput = Input.GetAxis("Vertical");
+        float horizontalInput = Input.GetAxis("Vertical");
+        float verticalInput = Input.GetAxis("Horizontal1");
 
-        Vector3 movement = new Vector3(horizontalImput * moveSpeed, rb.velocity.y, 0f);
-        rb.velocity = movement;
+        Vector3 movement = new Vector3(horizontalInput * moveSpeed, 0f, verticalInput * moveSpeed);
+        controller.Move(movement * Time.deltaTime);
+        
+        if (verticalInput > 0)
+        {
+            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, Mathf.Abs(transform.localScale.z));
+        }
+        else if (verticalInput < 0)
+        {
+            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, -Mathf.Abs(transform.localScale.z));
+        }
 
-        if (horizontalImput > 0)
+        if (controller.isGrounded)
         {
-            transform.localScale = initialScale;
+            velocity.y = -gravity * Time.deltaTime;
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                velocity.y = Mathf.Sqrt(jumpForce * 2f * gravity);
+                isJumping = true;
+            }
         }
-        else if (horizontalImput < 0)
+        else
         {
-            transform.localScale = new Vector3(-initialScale.x, initialScale.y, initialScale.z);
+            velocity.y -= gravity * Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
-        {
-            rb.AddForce(new Vector3(0f, jumpForce, 0f), ForceMode.Impulse);
-            isJumping = true;
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        // Detectar si ha aterrizado en el suelo
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isJumping = false;
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        // Detectar si ha dejado de tocar el suelo
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isJumping = true;
-        }
+        controller.Move(velocity * Time.deltaTime);
     }
 }
