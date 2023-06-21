@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/1 Escenas/2Nivel1.unity
     guid: 156b7ca2faa0a3841bc6f0fede6eb3b6
   - enabled: 1
-    path: Assets/1 Escenas/3CSoon.unity
+    path: Assets/1 Escenas/Menu.unity
     guid: 6cfe933b7f82e0c4ba5deec5f8bc67e8
   m_configObjects: {}
