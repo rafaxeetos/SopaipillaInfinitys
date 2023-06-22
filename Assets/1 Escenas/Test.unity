@@ -254,8 +254,8 @@ GameObject:
   - component: {fileID: 465408321}
   - component: {fileID: 465408320}
   - component: {fileID: 465408319}
-  - component: {fileID: 465408318}
   - component: {fileID: 465408317}
+  - component: {fileID: 465408323}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Player2
@@ -277,22 +277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   jumpForce: 5
---- !u!54 &465408318
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 465408316}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  gravity: 20
 --- !u!135 &465408319
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -371,6 +356,24 @@ Transform:
   m_Father: {fileID: 1320767287}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!143 &465408323
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 465408316}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 1
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &555661946
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -514,7 +517,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 595495351}
-  m_LocalRotation: {x: 0.118336655, y: 0.6535056, z: -0.10446549, w: 0.74027956}
+  m_LocalRotation: {x: 0.11833665, y: 0.6535056, z: -0.10446549, w: 0.74027956}
   m_LocalPosition: {x: -4.21, y: 3.1, z: -1.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -610,6 +613,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   jumpForce: 5
+  gravity: 20
+  faceStart: {fileID: 0}
+  otherFace: {fileID: 0}
 --- !u!135 &896487735
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1033,6 +1039,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   jumpForce: 5
+  gravity: 20
+  faceStart: {fileID: 0}
+  otherFace: {fileID: 0}
 --- !u!136 &1594596415
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1047,6 +1056,24 @@ CapsuleCollider:
   m_Height: 0.049150463
   m_Direction: 1
   m_Center: {x: -2.6290199e-19, y: 0.022165513, z: -0.0005911269}
+--- !u!143 &1594596416
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594596410}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1632659355
 GameObject:
   m_ObjectHideFlags: 0

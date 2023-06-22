@@ -5,9 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class ManagerScene : MonoBehaviour
 {
-   public void Tutorial()
+
+   public GameObject creditos;
+   public GameObject libroAbierto;
+   
+   public void Jugar()
    {
-      SceneManager.LoadScene("1Tutorial");
+      SceneManager.LoadScene("Start");
    }
 
    public void Menu()
@@ -15,16 +19,26 @@ public class ManagerScene : MonoBehaviour
       SceneManager.LoadScene("Menu");
    }
 
+   public void AbrirLibro()
+   {
+      libroAbierto.SetActive(true);
+   }
+
+   public void CerrarLibro()
+   {
+      libroAbierto.SetActive(false);
+   }
+
    public void Creditos()
    {
-      SceneManager.LoadScene("Creditos");
+      creditos.SetActive(true);
    }
 
-   public void Nivel1()
+   public void SacarCreditos()
    {
-      SceneManager.LoadScene("2Nivel1");
+      creditos.SetActive(false);
    }
-
+   
    public void Opciones()
    {
       SceneManager.LoadScene("Opciones");

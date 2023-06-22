@@ -7,6 +7,12 @@ TagManager:
   - Ground
   - Player1
   - Player2
+  - Trampolin
+  - Boton1
+  - Boton2
+  - Boton3
+  - Boton4
+  - Boton5
   layers:
   - Default
   - TransparentFX
